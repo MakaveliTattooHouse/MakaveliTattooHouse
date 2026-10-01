@@ -1,7 +1,7 @@
 {
-  "name": "Barbershop",
-  "short_name": "Barber",
-  "description": "Book your premium barber services instantly.",
+  "name": "Makaveli Ink House",
+  "short_name": "Makaveli",
+  "description": "Book your premium Tattoo services instantly.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#111111",
