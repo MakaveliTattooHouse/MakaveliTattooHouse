@@ -33,6 +33,7 @@ const servicesData = [
 
 // 2. Core App Logic
 document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById("services-container");  
     const catalogContainer = document.getElementById('catalog-container');
     const modal = document.getElementById('booking-modal');
     const confirmBtn = document.getElementById('confirm-booking');
