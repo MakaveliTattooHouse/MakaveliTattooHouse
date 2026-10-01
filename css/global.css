@@ -104,7 +104,7 @@ button {
 .tour-dialog {
     position: absolute;
     background-color: #fdfdfd;
-    color: var(--brand-dark);
+    color: #121212 !important;
     border-radius: 12px;
     width: 320px;
     max-width: 90vw;
@@ -140,11 +140,12 @@ button {
 .tour-title-block h4 {
     margin: 0;
     font-size: 0.95rem;
+    color: #121212;
 }
 
 .tour-title-block span {
     font-size: 0.75rem;
-    color: #666;
+    color: #555555;
 }
 
 .tour-close-btn {
@@ -158,6 +159,7 @@ button {
     padding: 20px 15px;
     font-size: 0.95rem;
     line-height: 1.5;
+    color: #333333;
 }
 
 .tour-actions {
@@ -170,6 +172,17 @@ button {
     flex: 1;
     padding: 10px;
     font-size: 0.9rem;
+}
+/* Force the transparent secondary button to be visible on the white modal */
+.tour-dialog .secondary-btn {
+    color: #333333 !important;
+    border-color: #333333 !important;
+}
+
+.tour-dialog .secondary-btn:disabled {
+    opacity: 0.4;
+    border-color: #999 !important;
+    color: #999 !important;
 }
 
 /* This class pulls the highlighted element above the dark overlay */
