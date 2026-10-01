@@ -104,10 +104,11 @@ button {
 .tour-dialog {
     position: absolute;
     background-color: #fdfdfd;
-    color: #121212 !important;
+    color: #121212 !important; 
     border-radius: 12px;
-    width: 320px;
-    max-width: 90vw;
+    /* Use width 90% bounded by a max-width, rather than a fixed 320px */
+    width: 90vw; 
+    max-width: 320px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     z-index: 2002;
     transition: top 0.3s ease, left 0.3s ease;
