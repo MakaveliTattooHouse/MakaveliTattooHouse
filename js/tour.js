@@ -68,27 +68,36 @@ document.addEventListener('DOMContentLoaded', () => {
             activeElement.classList.add('tour-highlight');
             activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Calculate positioning after scrolling
+         // Calculate positioning after scrolling
             setTimeout(() => {
                 const rect = activeElement.getBoundingClientRect();
                 
-                // Basic positioning logic
+                // 1. Vertical Positioning
                 if (step.position === 'bottom') {
                     dialog.style.top = `${rect.bottom + window.scrollY + 15}px`;
                 } else { // top
                     dialog.style.top = `${rect.top + window.scrollY - dialog.offsetHeight - 15}px`;
                 }
                 
-                // Center horizontally
-                dialog.style.left = `${Math.max(10, rect.left + (rect.width / 2) - (dialog.offsetWidth / 2))}px`;
+                // 2. Horizontal Bounds Checking
+                // Calculate ideal centered position
+                let calculatedLeft = rect.left + (rect.width / 2) - (dialog.offsetWidth / 2);
+                
+                // Prevent bleeding off the left edge (minimum 10px padding)
+                if (calculatedLeft < 10) {
+                    calculatedLeft = 10;
+                }
+                
+                // Prevent bleeding off the right edge (max width - dialog width - 10px padding)
+                const maxRight = window.innerWidth - dialog.offsetWidth - 10;
+                if (calculatedLeft > maxRight) {
+                    calculatedLeft = maxRight;
+                }
+
+                // Apply the bounded position
+                dialog.style.left = `${calculatedLeft}px`;
+                
             }, 300);
-        } else {
-            // Fallback center positioning if element is missing on current page
-            dialog.style.top = '50%';
-            dialog.style.left = '50%';
-            dialog.style.transform = 'translate(-50%, -50%)';
-        }
-    }
 
     // Event Listeners
     fab.addEventListener('click', startTour);
