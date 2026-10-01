@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Safely query all elements
     const fab = document.getElementById('msaidizi-fab');
     const fabTooltip = document.getElementById('msaidizi-tooltip');
     const overlay = document.getElementById('tour-overlay');
@@ -9,21 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('tour-prev');
     const closeBtn = document.getElementById('tour-close');
 
-    // Define the sequence of the tour
+    // 2. Early Return: If the core tour HTML isn't on this page, stop running the script gracefully.
+    if (!fab || !overlay || !dialog) return;
+
     const steps = [
         {
-            targetSelector: '#install-btn', // Assumes this ID is on your install button
-            text: "Tap here to install the Makaveli Ink House app directly to your home screen for quick offline access.",
-            position: 'top' // Places dialog above the button
+            targetSelector: '#install-btn', 
+            text: "Welcome to Makaveli Ink House! First, tap here to install our app directly to your home screen for instant, offline access to our studio.",
+            position: 'top' 
         },
         {
-            targetSelector: '.service-card', // Highlights the first service card it finds
-            text: "Browse our studio services. Find the tattoo or piercing you want and check the baseline pricing.",
+            targetSelector: '.service-card', 
+            text: "Browse our custom tattoos, body piercings, and tooth gem services. You'll see the starting prices listed right here on the card.",
             position: 'bottom'
         },
         {
-            targetSelector: '.book-btn', // Highlights the first book button
-            text: "Click 'Book Now' to select your preferred day and time. We will finalize your slot via WhatsApp!",
+            targetSelector: '.book-btn', 
+            text: "Ready to get inked? Tap 'Book Now' to pick your day and time. Your request will be sent directly to Makaveli's phone number (0743970892) via WhatsApp to secure your slot!",
             position: 'top'
         }
     ];
@@ -32,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeElement = null;
 
     function startTour() {
-        fabTooltip.style.display = 'none'; // Hide the "Click me" tooltip
+        if (fabTooltip) fabTooltip.style.display = 'none'; 
         overlay.hidden = false;
         dialog.hidden = false;
         renderStep(currentStep);
@@ -44,11 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeElement) {
             activeElement.classList.remove('tour-highlight');
         }
-        currentStep = 0; // Reset
+        currentStep = 0; 
     }
 
     function renderStep(index) {
-        // Clean up previous highlight
         if (activeElement) {
             activeElement.classList.remove('tour-highlight');
         }
@@ -56,67 +58,67 @@ document.addEventListener('DOMContentLoaded', () => {
         const step = steps[index];
         activeElement = document.querySelector(step.targetSelector);
         
-        stepCounter.innerText = `Step ${index + 1}/${steps.length}`;
-        textNode.innerText = step.text;
+        if (stepCounter) stepCounter.innerText = `Step ${index + 1}/${steps.length}`;
+        if (textNode) textNode.innerText = step.text;
 
-        // Button states
-        prevBtn.disabled = index === 0;
-        nextBtn.innerText = index === steps.length - 1 ? "Finish" : "Next";
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.innerText = index === steps.length - 1 ? "Finish" : "Next";
 
-        // If the element exists on this page, highlight it and position the dialog
         if (activeElement) {
             activeElement.classList.add('tour-highlight');
             activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-         // Calculate positioning after scrolling
             setTimeout(() => {
                 const rect = activeElement.getBoundingClientRect();
                 
-                // 1. Vertical Positioning
                 if (step.position === 'bottom') {
                     dialog.style.top = `${rect.bottom + window.scrollY + 15}px`;
-                } else { // top
+                } else { 
                     dialog.style.top = `${rect.top + window.scrollY - dialog.offsetHeight - 15}px`;
                 }
                 
-                // 2. Horizontal Bounds Checking
-                // Calculate ideal centered position
                 let calculatedLeft = rect.left + (rect.width / 2) - (dialog.offsetWidth / 2);
                 
-                // Prevent bleeding off the left edge (minimum 10px padding)
-                if (calculatedLeft < 10) {
-                    calculatedLeft = 10;
-                }
+                if (calculatedLeft < 10) calculatedLeft = 10;
                 
-                // Prevent bleeding off the right edge (max width - dialog width - 10px padding)
                 const maxRight = window.innerWidth - dialog.offsetWidth - 10;
-                if (calculatedLeft > maxRight) {
-                    calculatedLeft = maxRight;
-                }
+                if (calculatedLeft > maxRight) calculatedLeft = maxRight;
 
-                // Apply the bounded position
                 dialog.style.left = `${calculatedLeft}px`;
+                dialog.style.transform = 'none'; // Clear center transform if present
                 
             }, 300);
-
-    // Event Listeners
-    fab.addEventListener('click', startTour);
-    closeBtn.addEventListener('click', endTour);
-    overlay.addEventListener('click', endTour);
-
-    nextBtn.addEventListener('click', () => {
-        if (currentStep < steps.length - 1) {
-            currentStep++;
-            renderStep(currentStep);
         } else {
-            endTour();
+            // Safe fallback: If the target (e.g., #install-btn) isn't on this page, center the dialog.
+            dialog.style.top = '50%';
+            dialog.style.left = '50%';
+            dialog.style.transform = 'translate(-50%, -50%)';
         }
-    });
+    }
 
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-            currentStep--;
-            renderStep(currentStep);
-        }
-    });
+    // 3. Safely attach event listeners only if the buttons exist
+    fab.addEventListener('click', startTour);
+    overlay.addEventListener('click', endTour);
+    
+    if (closeBtn) closeBtn.addEventListener('click', endTour);
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                renderStep(currentStep);
+            } else {
+                endTour();
+            }
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep(currentStep);
+            }
+        });
+    }
 });
