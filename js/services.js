@@ -1,32 +1,40 @@
-// 1. Data Payload for Makaveli Tattoo House
+// 1. Data Payload for Makaveli Ink House
 const serviceCatalog = {
     tattoos: {
-        categoryTitle: "Tattoo Sessions",
+        categoryTitle: "1. TATTOOS",
         items: [
-            { name: "Minimalist / Linework (Small)", price: "KSh 1,500+" },
-            { name: "Custom Piece (Medium)", price: "KSh 4,000+" },
-            { name: "Full Sleeve Session", price: "KSh 15,000 (Depends)" },
-            { name: "Cover-Up / Rework", price: "KSh 5,000 (Start)" },
-            { name: "Color Realism", price: "KSh 8,000+" }
+            { name: "Tattoo Session", price: "Starts from KSh 1,500 (Depends on size/design)" }
         ]
     },
     piercings: {
-        categoryTitle: "Body Piercings",
+        categoryTitle: "2. PIERCINGS",
         items: [
-            { name: "Ear Lobe (Both)", price: "KSh 1,000" },
-            { name: "Cartilage / Helix", price: "KSh 1,500" },
-            { name: "Nose / Septum", price: "KSh 1,500" },
-            { name: "Belly Button", price: "KSh 2,500" },
-            { name: "Industrial", price: "KSh 3,000" }
+            { name: "Earlobe (Gun)", price: "KSh 500" },
+            { name: "Earlobe (Needle)", price: "KSh 800" },
+            { name: "Earlobe (Kids below 7yrs)", price: "KSh 1,000" },
+            { name: "Helix, Conch, Rook, Tragus", price: "KSh 1,000" },
+            { name: "Nose, Smiley", price: "KSh 1,000" },
+            { name: "Belly, Tongue, Septum", price: "KSh 1,500" },
+            { name: "Industrial, Eyebrows, Lips", price: "KSh 1,500" },
+            { name: "Surface Piercing (One)", price: "KSh 2,500" },
+            { name: "Surface Piercing (Pair)", price: "KSh 3,500" },
+            { name: "Dermal (One)", price: "KSh 3,500" },
+            { name: "Dermal (Pair)", price: "KSh 5,000" },
+            { name: "Nipple (One)", price: "KSh 2,000" },
+            { name: "Nipple (Pair)", price: "KSh 3,500" }
         ]
     },
-    aftercare: {
-        categoryTitle: "Aftercare & Extras",
+    toothGems: {
+        categoryTitle: "3. TOOTH GEMS INSTALLATION",
         items: [
-            { name: "Tattoo Healing Balm", price: "KSh 800" },
-            { name: "Saline Piercing Spray", price: "KSh 600" },
-            { name: "Laser Tattoo Removal (Session)", price: "KSh 5,000" },
-            { name: "House Call Fee", price: "KSh 1,500+" }
+            { name: "Custom Gem Installation", price: "KSh 300 (per tooth)" }
+        ]
+    },
+    extras: {
+        categoryTitle: "4. EXTRA ACTIVITIES",
+        items: [
+            { name: "Changing of all rings (for safer wear)", price: "Consultation" },
+            { name: "Sanitizing rings (safer use)", price: "Complimentary" }
         ]
     }
 };
