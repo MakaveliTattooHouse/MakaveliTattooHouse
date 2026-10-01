@@ -1,4 +1,5 @@
-const CACHE_NAME = 'mui-barber-beta-v3';
+const CACHE_NAME = 'makaveli-tattoo-v2'; 
+
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -10,8 +11,9 @@ const ASSETS_TO_CACHE = [
     './js/login.js',
     './js/services.js',
     './js/whatsapp.js',
+    './js/tour.js', // The new guided tour script
     './assets/images/barber.webp',
-    './assets/images/man.png'
+    './assets/images/logo.webp'
 ];
 
 // 1. Install Event: Cache critical assets
