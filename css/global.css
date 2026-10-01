@@ -31,3 +31,147 @@ button {
     font-family: var(--font-stack);
     border: none;
 }
+
+/* --- Msaidizi Helper Styles --- */
+.msaidizi-fab {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.msaidizi-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--brand-white);
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    padding: 5px;
+    position: relative;
+    z-index: 901;
+}
+
+.msaidizi-fab-tooltip {
+    background-color: var(--brand-white);
+    color: var(--brand-dark);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-right: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: relative;
+    animation: bounce 2s infinite;
+}
+
+.msaidizi-fab-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px 0 6px 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--brand-white);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
+}
+
+/* --- Tour Overlay & Dialog --- */
+.tour-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+.tour-dialog {
+    position: absolute;
+    background-color: #fdfdfd;
+    color: var(--brand-dark);
+    border-radius: 12px;
+    width: 320px;
+    max-width: 90vw;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    z-index: 2002;
+    transition: top 0.3s ease, left 0.3s ease;
+    overflow: hidden;
+}
+
+.tour-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.tour-identity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tour-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.tour-title-block h4 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.tour-title-block span {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.tour-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.tour-body {
+    padding: 20px 15px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tour-actions {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+}
+
+.tour-actions button {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+/* This class pulls the highlighted element above the dark overlay */
+.tour-highlight {
+    position: relative !important;
+    z-index: 2001 !important;
+    background-color: var(--card-bg); /* Prevents transparent elements from blending into the dark overlay */
+    pointer-events: none; /* Prevents user from clicking it during the tour */
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px var(--accent);
+}
