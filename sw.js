@@ -1,4 +1,4 @@
-const CACHE_NAME = 'makaveli-tattoo-v4.1'; 
+const CACHE_NAME = 'makaveli-tattoo-v4.2'; 
 
 const ASSETS_TO_CACHE = [
     './',
