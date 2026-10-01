@@ -56,14 +56,17 @@ button {
 }
 
 .msaidizi-fab-tooltip {
-    background-color: var(--brand-white);
-    color: var(--brand-dark);
+    /* Uses a dark fallback if --card-bg is missing */
+    background-color: var(--card-bg, #1a1a1a); 
+    /* Uses an off-white fallback to meet the 4.5:1 WCAG contrast ratio */
+    color: var(--text-primary, #f1f1f1); 
+    border: 1px solid #cfa85e; /* Makaveli Gold Accent */
     padding: 10px 15px;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: bold;
     margin-right: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     position: relative;
     animation: bounce 2s infinite;
 }
@@ -76,7 +79,8 @@ button {
     transform: translateY(-50%);
     border-width: 6px 0 6px 8px;
     border-style: solid;
-    border-color: transparent transparent transparent var(--brand-white);
+    /* Matches the arrow color to the dark background fallback */
+    border-color: transparent transparent transparent var(--card-bg, #1a1a1a);
 }
 
 @keyframes bounce {
