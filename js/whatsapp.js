@@ -1,16 +1,17 @@
 /**
  * Utility function to generate a pre-filled WhatsApp link.
  * @param {string} serviceName - The name of the selected service.
- * @returns {string} The fully encoded wa.me URL.
+ * @param {string} servicePrice - The price of the selected service.
+ * @param {string} preferredDay - The user's selected day.
+ * @param {string} preferredTime - The user's selected time block.
  */
-function generateWhatsAppLink(serviceName) {
-    // Updated to the new number with the 254 country code
-    const phoneNumber = "254710247959"; 
+function generateWhatsAppLink(serviceName, servicePrice, preferredDay, preferredTime) {
+    // Updated to the new Eleazar Barbershop number
+    // Converted local 0716426596 to international 254716426596
+    const phoneNumber = "254716426596"; 
     
-    // Construct the multiline template string
-    const message = `Hello 👋, I would like to book an appointment.\n\nI want to get a ${serviceName}\n\nPlease let me know when you are available. Thanks!`;
+    const message = `Hello 👋, I would like to book an appointment.\n\nService: ${serviceName} (${servicePrice})\nPreferred Day: ${preferredDay}\nPreferred Time: ${preferredTime}\n\nDo you have a slot open?`;
     
-    // Encode the string so spaces and line breaks are URL-safe
     const encodedMessage = encodeURIComponent(message);
     
     return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
