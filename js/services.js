@@ -31,41 +31,75 @@ const servicesData = [
   }
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Target the container in your HTML
-  const container = document.getElementById("services-container");
-  
-  if (!container) {
-    console.error("Error: Could not find the <div id='services-container'> in services.html");
-    return;
-  }
+// 2. Core App Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const catalogContainer = document.getElementById('catalog-container');
+    const modal = document.getElementById('booking-modal');
+    const confirmBtn = document.getElementById('confirm-booking');
+    const cancelBtn = document.getElementById('cancel-booking');
+    const serviceTitle = document.getElementById('modal-service-title');
+    const daySelect = document.getElementById('day-select');
+    const timeSelect = document.getElementById('time-select');
+    
+    let activeService = '';
+    let activePrice = '';
 
-  let htmlContent = "";
+    // A. Render UI dynamically from the catalog
+    for (const key in serviceCatalog) {
+        const category = serviceCatalog[key];
+        
+        const section = document.createElement('section');
+        section.classList.add('category-section');
+        section.innerHTML = `<h2 class="category-title">${category.categoryTitle}</h2>`;
+        
+        const cardContainer = document.createElement('div');
+        cardContainer.classList.add('card-grid');
 
-  // Loop through each category
-  servicesData.forEach(section => {
-    htmlContent += `
-      <div class="service-category" style="margin-bottom: 30px;">
-        <h2 style="color: #cda85d; border-bottom: 1px solid #333; padding-bottom: 10px;">${section.category}</h2>
-        <ul style="list-style: none; padding: 0;">
-    `;
+        category.items.forEach(service => {
+            const card = document.createElement('div');
+            card.classList.add('service-card');
+            
+            card.innerHTML = `
+                <div class="card-content">
+                    <h3>${service.name}</h3>
+                    <p class="price-tag">🏷️ ${service.price}</p>
+                </div>
+                <button class="book-btn" data-service="${service.name}" data-price="${service.price}">Book Now</button>
+            `;
+            
+            cardContainer.appendChild(card);
+        });
 
-    // Loop through the services within the category
-    section.services.forEach(item => {
-      htmlContent += `
-        <li style="margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 5px;">
-          <div style="display: flex; justify-content: space-between; font-weight: bold; color: #fff;">
-            <span>${item.name}</span>
-            <span style="color: #cda85d;">${item.price}</span>
-          </div>
-          ${item.details ? `<div style="font-size: 0.9em; color: #aaa; margin-top: 5px;">${item.details}</div>` : ""}
-        </li>
-      `;
+        section.appendChild(cardContainer);
+        catalogContainer.appendChild(section);
+    }
+
+    // B. Attach Modal Open Listeners
+    const buttons = document.querySelectorAll('.book-btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            activeService = e.target.getAttribute('data-service');
+            activePrice = e.target.getAttribute('data-price');
+            serviceTitle.innerText = `Book: ${activeService}`;
+            modal.hidden = false;
+        });
     });
 
-    htmlContent += `</ul></div>`;
-  });
+    // C. Handle Modal Cancellation
+    cancelBtn.addEventListener('click', () => {
+        modal.hidden = true;
+        activeService = ''; 
+        activePrice = '';
+    });
 
-  // Inject the generated HTML into the page
-  container.innerHTML = htmlContent;
+    // D. Handle Modal Confirmation & Routing
+    confirmBtn.addEventListener('click', () => {
+        const selectedDay = daySelect.value;
+        const selectedTime = timeSelect.value;
+        
+        const url = generateWhatsAppLink(activeService, activePrice, selectedDay, selectedTime);
+        
+        modal.hidden = true;
+        window.open(url, '_blank');
+    });
 });
