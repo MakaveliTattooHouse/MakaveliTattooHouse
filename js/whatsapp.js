@@ -6,10 +6,10 @@
  * @param {string} preferredTime - The user's selected time block.
  */
 function generateWhatsAppLink(serviceName, servicePrice, preferredDay, preferredTime) {
-    // Internationalized number based on the provided menu: 0743970892
     const phoneNumber = "254743970892"; 
     
-    const message = `Hello 👋, I would like to book a studio session.\n\nService: ${serviceName} (${servicePrice})\nPreferred Day: ${preferredDay}\nPreferred Time: ${preferredTime}\n\nDo you have a slot open?`;
+    // Added a line reminding the user to attach their inspiration image
+    const message = `Hello 👋, I would like to book a studio session.\n\nService: ${serviceName} (${servicePrice})\nPreferred Day: ${preferredDay}\nPreferred Time: ${preferredTime}\n\nI will attach my tattoo/piercing inspiration picture below. Do you have a slot open?`;
     
     const encodedMessage = encodeURIComponent(message);
     
