@@ -40,7 +40,16 @@ button {
     z-index: 900;
     display: flex;
     align-items: center;
-    cursor: pointer;
+  cursor: grab;
+    
+    /* Crucial additions for dragging */
+    touch-action: none; /* Prevents the browser from scrolling the page when touching the FAB */
+    user-select: none; /* Prevents accidental text highlighting */
+    -webkit-user-select: none;
+}
+
+.msaidizi-fab:active {
+    cursor: grabbing;
 }
 
 .msaidizi-icon {
