@@ -121,4 +121,108 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+// --- Draggable FAB Logic ---
+    let isDragging = false;
+    let isMoved = false; // Distinguishes between a click and a drag
+    let startX, startY, initialX, initialY;
+
+    function onDragStart(e) {
+        // Ignore right-clicks
+        if (e.type === 'mousedown' && e.button !== 0) return;
+        
+        isDragging = true;
+        isMoved = false; // Reset movement flag
+
+        // Normalize touch and mouse coordinates
+        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+        startX = clientX;
+        startY = clientY;
+
+        // Capture the element's current physical position
+        const rect = fab.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+
+        // Strip CSS constraints so left/top absolute positioning works
+        fab.style.bottom = 'auto';
+        fab.style.right = 'auto';
+        fab.style.left = `${initialX}px`;
+        fab.style.top = `${initialY}px`;
+        fab.style.transition = 'none'; // Disable snapping transitions during drag
+
+        // Bind global movement listeners
+        document.addEventListener('mousemove', onDragMove, { passive: false });
+        document.addEventListener('mouseup', onDragEnd);
+        document.addEventListener('touchmove', onDragMove, { passive: false });
+        document.addEventListener('touchend', onDragEnd);
+    }
+
+    function onDragMove(e) {
+        if (!isDragging) return;
+
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+
+        // If movement exceeds 5px, register it as a drag rather than a sloppy click
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            isMoved = true;
+        }
+
+        if (isMoved) {
+            e.preventDefault(); // Stop mobile viewport scrolling
+
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
+
+            // Viewport Boundary Constraints
+            const maxX = window.innerWidth - fab.offsetWidth;
+            const maxY = window.innerHeight - fab.offsetHeight;
+
+            if (newX < 0) newX = 0;
+            if (newY < 0) newY = 0;
+            if (newX > maxX) newX = maxX;
+            if (newY > maxY) newY = maxY;
+
+            // Apply new coordinates
+            fab.style.left = `${newX}px`;
+            fab.style.top = `${newY}px`;
+        }
+    }
+
+    function onDragEnd() {
+        isDragging = false;
+        
+        // Remove global listeners to free up memory
+        document.removeEventListener('mousemove', onDragMove);
+        document.removeEventListener('mouseup', onDragEnd);
+        document.removeEventListener('touchmove', onDragMove);
+        document.removeEventListener('touchend', onDragEnd);
+    }
+
+    // Attach initiation listeners
+    fab.addEventListener('mousedown', onDragStart);
+    fab.addEventListener('touchstart', onDragStart, { passive: false });
+
+    // Modified click listener: Abort the tour start if the user dragged the widget
+    fab.addEventListener('click', (e) => {
+        if (isMoved) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        startTour();
+    });
+
+    // Existing modal listeners
+    overlay.addEventListener('click', endTour);
+    if (closeBtn) closeBtn.addEventListener('click', endTour);
+    // ... keep your nextBtn and prevBtn event listeners below ...
+
+    
 });
