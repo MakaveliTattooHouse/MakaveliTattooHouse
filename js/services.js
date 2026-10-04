@@ -1,13 +1,28 @@
-// 1. Data Payload for Makaveli Ink House
+// 1. High-Fidelity Data Payload for Makaveli Ink House
 const serviceCatalog = {
     tattoos: {
         categoryTitle: "1. TATTOOS",
         items: [
-            { name: "Tattoo Session", price: "Starts from KSh 1,500 (Depends on size/design)" }
+            { name: "Tattoo Session", price: "Starts from KSh 1,500" }
+        ]
+    },
+    specialtyPiercings: {
+        categoryTitle: "2. SPECIALTY PIERCINGS",
+        items: [
+            { name: "Snake Eyes", price: "KSh 2,000" },
+            { name: "Frog Eyes", price: "KSh 2,000" }
+        ]
+    },
+    intimatePiercings: {
+        categoryTitle: "3. HOOD PIERCINGS",
+        items: [
+            { name: "VCH & HCH", price: "KSh 5,500" },
+            { name: "Triangle", price: "KSh 5,500" },
+            { name: "Christina", price: "KSh 5,500" }
         ]
     },
     piercings: {
-        categoryTitle: "2. PIERCINGS",
+        categoryTitle: "4. STANDARD PIERCINGS",
         items: [
             { name: "Earlobe (Gun)", price: "KSh 500" },
             { name: "Earlobe (Needle)", price: "KSh 800" },
@@ -25,16 +40,16 @@ const serviceCatalog = {
         ]
     },
     toothGems: {
-        categoryTitle: "3. TOOTH GEMS INSTALLATION",
+        categoryTitle: "5. TOOTH GEMS",
         items: [
             { name: "Custom Gem Installation", price: "KSh 300 (per tooth)" }
         ]
     },
     extras: {
-        categoryTitle: "4. EXTRA ACTIVITIES",
+        categoryTitle: "6. EXTRA ACTIVITIES",
         items: [
-            { name: "Changing of all rings (for safer wear)", price: "Consultation" },
-            { name: "Sanitizing rings (safer use)", price: "Complimentary" }
+            { name: "Changing of all rings", price: "Consultation" },
+            { name: "Sanitizing rings", price: "Complimentary" }
         ]
     }
 };
