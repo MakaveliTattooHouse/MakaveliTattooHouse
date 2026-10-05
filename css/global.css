@@ -204,3 +204,22 @@ button {
     border-radius: 4px;
     box-shadow: 0 0 0 4px var(--accent);
 }
+
+.modal-input {
+    width: 100%;
+    padding: 12px;
+    background-color: #121212;
+    color: #f1f1f1;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    /* Forces the native calendar pop-up to use a dark theme */
+    color-scheme: dark; 
+}
+
+.modal-input:focus {
+    border-color: #cfa85e; /* Makaveli Gold focus state */
+}
+
