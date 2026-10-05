@@ -67,6 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeService = '';
     let activePrice = '';
 
+    // Restrict the calendar so users cannot book dates in the past
+    if (daySelect && daySelect.type === 'date') {
+        const today = new Date();
+        // Format to YYYY-MM-DD accounting for local timezone differences
+        const offset = today.getTimezoneOffset() * 60000;
+        const localISOTime = (new Date(today - offset)).toISOString().split('T')[0];
+        
+        daySelect.setAttribute('min', localISOTime);
+    }
+
+
+    
     // A. Render UI dynamically from the catalog
     for (const key in serviceCatalog) {
         const category = serviceCatalog[key];
